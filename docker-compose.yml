@@ -19,16 +19,6 @@ services:
       - npm-letsencrypt:/etc/letsencrypt
     networks:
       - proxy
-  #duckdns-updater:
-    #image: linuxserver/duckdns
-    #container_name: duckdns-updater
-    #restart: unless-stopped
-    #env_file:
-     # - ./duckdns-updater/.env
-    #volumes:
-     # - duckdns-data:/config
-    #networks:
-      #- proxy
    mediaflow_proxy:
     build: https://github.com/nzo66/EasyProxy.git
     container_name: easyproxy
@@ -64,17 +54,6 @@ services:
       - ./streamv/.env
     restart: unless-stopped
     command: pnpm start
-    networks:
-      - proxy
-  aiostreams:
-    #build: https://github.com/Viren070/AIOStreams.git#main
-    image: ghcr.io/viren070/aiostreams:latest
-    container_name: aiostreams
-    env_file:
-      - ./aiostreams/.env
-    volumes:
-      - aiostreams-data:/app/data
-    restart: unless-stopped
     networks:
       - proxy
 
