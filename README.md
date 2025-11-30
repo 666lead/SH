@@ -156,13 +156,38 @@ PROXY=["http://xxxxxxx-rotate:xxxxxxxxx@p.webshare.io:80"]
 FORWARDPROXY=http://xxxxxxx-rotate:xxxxxxxx@p.webshare.io:80/
 ```
 
-#### 2. .env per MediaFlow Proxy
+#### 2. .env per EasyProxy
 
 ```bash
-# Esempio: ./mfp/.env
-API_PASSWORD=password_a_scelta
-TRANSPORT_ROUTES={"all://*.ichigotv.net": {"verify_ssl": false}, "all://ichigotv.net": {"verify_ssl": false}}
-FORWARDED_ALLOW_IPS=*
+# ==================================================
+#         Configurazione Proxy EasyProxy
+# ==================================================
+#
+# Rinomina questo file in ".env" e decommenta le variabili che vuoi usare.
+# Puoi specificare più proxy per una variabile separandoli con una virgola.
+# Il sistema sceglierà un proxy a caso dalla lista per ogni richiesta.
+#
+# Formati supportati: http, https, socks5, socks5h, socks4, socks4a
+# Esempio con autenticazione: http://user:password@host:port
+
+# --- Proxy Globale ---
+# Usato per tutte le richieste che non hanno un proxy specifico (Vavoo, DLHD).
+# Esempio: GLOBAL_PROXY=http://myproxy.com:8080,socks5://user:pass@anotherproxy.com:1080
+#GLOBAL_PROXY=
+
+# --- Proxy per Vavoo ---
+# Usato specificamente per le richieste a Vavoo. Se non impostato, usa GLOBAL_PROXY.
+#VAVOO_PROXY=
+
+# --- Proxy per DaddyLiveHD (DLHD) ---
+# Usato specificamente per le richieste a DLHD. Se non impostato, usa GLOBAL_PROXY.
+#DLHD_PROXY=
+
+# --- Password API ---
+# Protegge l'accesso alle API del proxy. Se impostata, deve essere passata
+# come parametro query (?api_password=...) o header (x-api-password).
+# API_PASSWORD=
+
 ```
 
 #### 3. .env per StreamV
@@ -276,7 +301,7 @@ Forward Hostname / IP: streamv
 
 Forward Port: 7860
 
-Per MediaFlow Proxy (mfp):
+Per EasyProxy (mfp):
 
 Incoming Port: 8003
 
