@@ -156,37 +156,15 @@ PROXY=["http://xxxxxxx-rotate:xxxxxxxxx@p.webshare.io:80"]
 FORWARDPROXY=http://xxxxxxx-rotate:xxxxxxxx@p.webshare.io:80/
 ```
 
-#### 2. .env per EasyProxy
+#### 2. .env per mediaflow_proxy
 
 ```bash
-# ==================================================
-#         Configurazione Proxy EasyProxy
-# ==================================================
-#
-# Rinomina questo file in ".env" e decommenta le variabili che vuoi usare.
-# Puoi specificare più proxy per una variabile separandoli con una virgola.
-# Il sistema sceglierà un proxy a caso dalla lista per ogni richiesta.
-#
-# Formati supportati: http, https, socks5, socks5h, socks4, socks4a
-# Esempio con autenticazione: http://user:password@host:port
-
-# --- Proxy Globale ---
-# Usato per tutte le richieste che non hanno un proxy specifico (Vavoo, DLHD).
-# Esempio: GLOBAL_PROXY=http://myproxy.com:8080,socks5://user:pass@anotherproxy.com:1080
-#GLOBAL_PROXY=
-
-# --- Proxy per Vavoo ---
-# Usato specificamente per le richieste a Vavoo. Se non impostato, usa GLOBAL_PROXY.
-#VAVOO_PROXY=
-
-# --- Proxy per DaddyLiveHD (DLHD) ---
-# Usato specificamente per le richieste a DLHD. Se non impostato, usa GLOBAL_PROXY.
-#DLHD_PROXY=
-
-# --- Password API ---
-# Protegge l'accesso alle API del proxy. Se impostata, deve essere passata
-# come parametro query (?api_password=...) o header (x-api-password).
-# API_PASSWORD=
+API_PASSWORD=xxxxxxxxxx
+TRANSPORT_ROUTES={"all://*.ichigotv.net": {"verify_ssl": false}, "all://ichigotv.net": {"verify_ssl": false}}
+# Trust all Docker IPs (less secure but simpler for development)
+FORWARDED_ALLOW_IPS=*
+# or Trust the Docker network range (when nginx and mediaflow-proxy are in same docker network)
+#FORWARDED_ALLOW_IPS=172.20.0.0
 
 ```
 
@@ -285,13 +263,6 @@ Configura gli Stream per gli altri servizi:
 ```bash
 Vai su Hosts -> Streams -> Add Stream.
 
-Per AIOStreams:
-
-Incoming Port: 8001
-
-Forward Hostname / IP: aiostreams
-
-Forward Port: 3000
 
 Per StreamV:
 
@@ -301,11 +272,11 @@ Forward Hostname / IP: streamv
 
 Forward Port: 7860
 
-Per EasyProxy (mfp):
+Per mediaflow_proxy (mfp):
 
 Incoming Port: 8003
 
-Forward Hostname / IP: mfp
+Forward Hostname / IP: mediaflow_proxy
 
 Forward Port: 8888
 ```
